@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bugtrack.Practice1.dao.IMemberRepository;
 import com.bugtrack.Practice1.entities.MemberEntities;
 
 @Controller
 @RequestMapping("/members")
 public class MemberController {
+	
+	IMemberRepository memberRepo;
 	
 	//Create
 	@GetMapping("/new")
@@ -18,12 +21,14 @@ public class MemberController {
 		
 		MemberEntities aMember = new MemberEntities();
 		
-		model.addAttribute("member", aMember);
+		model.addAttribute("memberHTML", aMember);
 		
 		return "/member/new-member";
 	}
 	@PostMapping("/saved")
 	public String memberSaved(Model model, MemberEntities aMember) {
+		
+		memberRepo.save(aMember);
 		
 		return "redirect:/members/new";
 	}
