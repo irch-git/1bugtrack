@@ -1,5 +1,6 @@
 package com.bugtrack.Practice1.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import com.bugtrack.Practice1.entities.MemberEntities;
 @RequestMapping("/members")
 public class MemberController {
 	
+	@Autowired
 	IMemberRepository memberRepo;
 	
 	//Create
@@ -26,9 +28,9 @@ public class MemberController {
 		return "/member/new-member";
 	}
 	@PostMapping("/saved")
-	public String memberSaved(Model model, MemberEntities aMember) {
+	public String memberSaved(Model model, MemberEntities memberHTML) {
 		
-		memberRepo.save(aMember);
+		memberRepo.save(memberHTML);
 		
 		return "redirect:/members/new";
 	}
